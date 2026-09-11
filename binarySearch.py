@@ -6,16 +6,16 @@ def binarySearch(search_term):
     high = len(nums) - 1
 
     while low <= high:
-        mid = int((low + high / 2) - 1)
+        mid = (low + high) // 2
         guess = nums[mid]
 
         if guess == search_term:
             print("YOU GOT IT")
             print(mid)
             break
-        elif guess > search_term:
-            high = mid - 1
-        else:
+        elif guess < search_term:
             low = mid + 1
+        else:
+            high = mid - 1
 
-binarySearch(14)
+binarySearch(20)
