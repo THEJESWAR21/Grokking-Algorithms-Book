@@ -34,8 +34,16 @@ def fibonacci_iterative(n):
 
     return seq
 
+def is_even(n):
+    if n == 0:
+        return True
+    if n == 1:
+        return False
+    return is_even(n-2)
+
 print(sys.getrecursionlimit())
 print(factional(5))
 print(factional_iterative(5))
 print(fibonacci(7))
 print(fibonacci_iterative(10))
+print(is_even(2))
