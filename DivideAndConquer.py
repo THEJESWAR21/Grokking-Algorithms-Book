@@ -17,7 +17,7 @@ print(countarr([2,3,4,5,6])) # 5
 def maxnum(arr):
     sorted_list = []
     # Outer Loop: that append the smallest number to the new list
-    for i in range(len(arr) - 1):
+    for i in range(len(arr) - 1): # the final item will be the smallest so comparing against itself is redundant.
         smallest = i
         # Inner Loop: Checking for smallest number in the list
         for x in range(i+1, len(arr)):
@@ -27,8 +27,7 @@ def maxnum(arr):
         smallest_val = arr.pop(smallest)
         arr.insert(i, smallest_val)
 
-    return arr[-1]
-
+    return arr
 
 print(maxnum([2,7,1,9,14])) # 5
-
+print()
