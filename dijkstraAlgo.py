@@ -1,23 +1,24 @@
 def main(graph, costs, parents, visited):
+    # Find the Lowest Cost Node : C
     node = find_lowest_cost_node(costs, visited)
 
     while node is not None:
-        cost = costs[node] 
-        neighbors = graph[node]
+        cost = costs[node] # Return the Cost of the Node : 2
+        neighbors = graph[node] # Returns all Neigbours like ['B': 3, 'D': 5]
 
-        for n in neighbors.keys():
-            new_cost = cost + neighbors[n]
-            if costs[n] > new_cost:
-                costs[n] = new_cost
-                parents[n] = node
-        visited.append(node)
-        node = find_lowest_cost_node(costs, visited)
+        for n in neighbors.keys(): # ['B', 'D']
+            new_cost = cost + neighbors[n] # 2 + 3 = 5
+            if costs[n] > new_cost: # 3 > 5
+                costs[n] = new_cost # Replace the Cost of that node
+                parents[n] = node # Replace the parent 
+        visited.append(node) # Keep track of visited Nodes
+        node = find_lowest_cost_node(costs, visited) # Find the next Node
 
 def find_lowest_cost_node(costs, visited):
-    lowest_cost = float("inf")
+    lowest_cost = float("inf") # Infinity
     lowest_cost_node = None
     for node in costs:
-        cost = costs[node]
+        cost = costs[node] # Return the value of costs
         if cost < lowest_cost and node not in visited:
             lowest_cost = cost
             lowest_cost_node = node
@@ -29,16 +30,16 @@ def print_shortest_path(start, target, costs, parent):
         print(f"No path found from {start} to {target}")
         return
 
-    print(f"Shortest Distance to {target}: {costs[target]}")
+    print(f"Shortest Distance to {target}: {costs[target]}") # Return the Shortest Distance to Target
 
-    path =[]
+    path = []
     current = target
     while current is not None:
         path.append(current)
-        current = parents.get(current)
+        current = parents.get(current) # Get the Neighbors and append it 
 
-    path.reverse()
-    print("Path Taken:", " -> ".join(path))
+    path.reverse() # Reverse the String to go from Start to Target
+    print("Path Taken:", " -> ".join(path)) 
 
 if __name__ == "__main__":
     infinity = float('inf')
@@ -64,7 +65,7 @@ if __name__ == "__main__":
     }
 
     visited = []
-
+    
     main(graph, costs, parents, visited)
 
     print("-- Final Shortest Distance From A ---")
@@ -73,4 +74,3 @@ if __name__ == "__main__":
 
     print("\n--- Detailed Path to Destination 'D' ---")
     print_shortest_path('A', 'D', costs, parents)
-
