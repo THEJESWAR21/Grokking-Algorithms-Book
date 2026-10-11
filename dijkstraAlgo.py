@@ -1,9 +1,7 @@
-def main(graph, costs, parents, visted):
-    node = find_lowest_cost_node(costs) # Find the node with the lowest cost
+def main(graph, costs, parents, visited):
+    node = find_lowest_cost_node(costs, visited)
 
-    # if all nodes are visted node becomes None 
     while node is not None:
-        # Find the cost and neighbor of that node
         cost = costs[node] 
         neighbors = graph[node]
 
@@ -12,21 +10,35 @@ def main(graph, costs, parents, visted):
             if costs[n] > new_cost:
                 costs[n] = new_cost
                 parents[n] = node
-        visted.append(node)
-        node = find_lowest_cost_node(costs)
-        print(node)
+        visited.append(node)
+        node = find_lowest_cost_node(costs, visited)
 
-def find_lowest_cost_node(costs):
+def find_lowest_cost_node(costs, visited):
     lowest_cost = float("inf")
     lowest_cost_node = None
     for node in costs:
         cost = costs[node]
-        if cost < lowest_cost and node not in visted:
+        if cost < lowest_cost and node not in visited:
             lowest_cost = cost
             lowest_cost_node = node
 
     return lowest_cost_node
 
+def print_shortest_path(start, target, costs, parent):
+    if costs[target] == float('inf'):
+        print(f"No path found from {start} to {target}")
+        return
+
+    print(f"Shortest Distance to {target}: {costs[target]}")
+
+    path =[]
+    current = target
+    while current is not None:
+        path.append(current)
+        current = parents.get(current)
+
+    path.reverse()
+    print("Path Taken:", " -> ".join(path))
 
 if __name__ == "__main__":
     infinity = float('inf')
@@ -51,7 +63,14 @@ if __name__ == "__main__":
         'D': None
     }
 
-    visted = []
+    visited = []
 
-    main(graph, costs, parents, visted)
+    main(graph, costs, parents, visited)
+
+    print("-- Final Shortest Distance From A ---")
+    for node, distance in costs.items():
+        print(f"Distance to {node}: {distance}")
+
+    print("\n--- Detailed Path to Destination 'D' ---")
+    print_shortest_path('A', 'D', costs, parents)
 
